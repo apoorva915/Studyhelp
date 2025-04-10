@@ -16,7 +16,14 @@ export default function Provider({ children }) {
         //   user.primaryEmailAddress?.emailAddress || '',
         //   user.fullName
         // );
-        const res=await axios.post('/api/create-user', {user:user});
+        const res=await axios.post('/api/create-user',{
+          user: {
+            id: user.id,
+            email: user.primaryEmailAddress?.emailAddress,
+            name: user.fullName,
+            image: user.imageUrl,
+          },
+        });
         console.log(res.data);
       }
     };
