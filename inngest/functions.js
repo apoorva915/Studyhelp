@@ -2,7 +2,8 @@ import { checkAndInsertUser } from "@/actions/user";
 import { inngest } from "./client";
 import { generateNotesAiModel } from "@/configs/AiModel";
 import { db } from "@/configs/db";
-import { CHAPTER_NOTES_TABLE } from "@/configs/schema";
+import { CHAPTER_NOTES_TABLE, STUDY_MATERIAL_TABLE } from "@/configs/schema";
+import { eq } from "drizzle-orm";
 
 export const helloWorld = inngest.createFunction(
   { id: "hello-world" },
@@ -32,16 +33,11 @@ export const GenerateNotes=inngest.createFunction(
   {id:'generate-course'},
   {event:'notes.generate'},
   async({event,step})=>{
-    const course=event.data;
+    console.log(event.data);
+    const course=event.data.course;
     const res=await step.run('Generate Chapter Notes',async()=>{
       const Chapters=course?.courseLayout?.chapters;
 
-      if (!Array.isArray(Chapters)) {
-        throw new Error(
-          "Chapters is not an array or is undefined. Got: " +
-            JSON.stringify(Chapters)
-        );
-      }
       console.log(Chapters);
       let index=0;
       Chapters.forEach(async(chapter)=>{
