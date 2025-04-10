@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import Image from 'next/image';
-import { Item } from '@radix-ui/react-select';
-
+import {Item} from '@radix-ui/react-select';
 
 function SelectOption (selectedStudyType) {
     const Options=[

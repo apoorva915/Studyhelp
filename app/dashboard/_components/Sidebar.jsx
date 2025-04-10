@@ -33,16 +33,18 @@ function Sidebar() {
         <h2 className="font-bold text-2xl">StudyHelp</h2>
       </div>
       <div className="mt-10">
-      <Button className="w-full">+ Create New</Button>
-      <div className="mt-5">
-        {MenuList.map((item, index) =>(
-            <div key={index} className={`flex items-center gap-5 p-3 hover:bg-slate-200
-             rounded-lg cursor-pointer mt-3 ${path===item.path && 'bg-slate-200'}`}>
-                <item.icon />
-                <h2>{item.name}</h2>
-            </div>
-        ))}
-        </div>
+        <Link href={'/create'}>
+        <Button>+ Create New</Button>
+        </Link>
+          <div className="mt-5">
+            {MenuList.map((item, index) =>(
+                <div key={index} className={`flex items-center gap-5 p-3 hover:bg-slate-200
+                rounded-lg cursor-pointer mt-3 ${path===item.path && 'bg-slate-200'}`}>
+                    <item.icon />
+                    <h2>{item.name}</h2>
+                </div>
+            ))}
+          </div>
       </div>
       <div className="border bg-slate-100 p-3 rounded-lg absolute bottom-10 w-[85%]">
         <h2 className="text-lg mb-2">Available Credits:5</h2>
