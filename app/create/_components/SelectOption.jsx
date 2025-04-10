@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { Item } from '@radix-ui/react-select';
 
 
-function SelectOption (selectedStudyType) {
+function SelectOption ({selectedStudyType}) {
     const Options=[
         {
             name:'Exam',
