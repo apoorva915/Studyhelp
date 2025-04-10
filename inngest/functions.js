@@ -40,18 +40,18 @@ export const GenerateNotes=inngest.createFunction(
 
       console.log(Chapters);
       let index=0;
-      Chapters.forEach(async(chapter)=>{
-        const PROMPT='Generate exam material for each chapter, Make sure to include all topic points in the content,make sure to give content in html format(do no add HTML, Head,Body, Title tag),The chapters:'+JSON.stringify(chapter)
+       for(const chapter of Chapters){
+       const PROMPT='Generate exam material for each chapter, Make sure to include all topic points in the content,make sure to give content in html format(do no add HTML, Head,Body, Title tag),The chapters:'+JSON.stringify(chapter)
         const res=await generateNotesAiModel.sendMessage(PROMPT)
         const aiResp=res.response.text()
-
+        console.log("data generated")
         await db.insert(CHAPTER_NOTES_TABLE).values({
           chapterId:index,
           courseId:course?.courseId,
           notes:aiResp,
       })
       index=index+1;
-    })
+    }
     return 'Completed'
   })
   const updateCourseStatusResult=await step.run('Update Course Status',async()=>{
