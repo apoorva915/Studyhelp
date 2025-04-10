@@ -1,5 +1,8 @@
 import { checkAndInsertUser } from "@/actions/user";
 import { inngest } from "./client";
+import { generateNotesAiModel } from "@/configs/AiModel";
+import { db } from "@/configs/db";
+import { CHAPTER_NOTES_TABLE } from "@/configs/schema";
 
 export const helloWorld = inngest.createFunction(
   { id: "hello-world" },
@@ -23,4 +26,42 @@ export const CreateNewUser=inngest.createFunction(
         })
         return "Success";
     }
+)
+
+export const GenerateNotes=inngest.createFunction(
+  {id:'generate-course'},
+  {event:'notes.generate'},
+  async({event,step})=>{
+    const course=event.data;
+    const res=await step.run('Generate Chapter Notes',async()=>{
+      const Chapters=course?.courseLayout?.chapters;
+
+      if (!Array.isArray(Chapters)) {
+        throw new Error(
+          "Chapters is not an array or is undefined. Got: " +
+            JSON.stringify(Chapters)
+        );
+      }
+      console.log(Chapters);
+      let index=0;
+      Chapters.forEach(async(chapter)=>{
+        const PROMPT='Generate exam material for each chapter, Make sure to include all topic points in the content,make sure to give content in html format(do no add HTML, Head,Body, Title tag),The chapters:'+JSON.stringify(chapter)
+        const res=await generateNotesAiModel.sendMessage(PROMPT)
+        const aiResp=res.response.text()
+
+        await db.insert(CHAPTER_NOTES_TABLE).values({
+          chapterId:index,
+          courseId:course?.courseId,
+          notes:aiResp,
+      })
+      index=index+1;
+    })
+    return 'Completed'
+  })
+  const updateCourseStatusResult=await step.run('Update Course Status',async()=>{
+    const res=await db.update(STUDY_MATERIAL_TABLE).set({
+      status:'Completed'
+    }).where(eq(STUDY_MATERIAL_TABLE.courseId,course?.courseId))
+  })
+  }
 )

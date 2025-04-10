@@ -30,9 +30,12 @@ function Create() {
       const courseId=uuidv4();
       setLoading(true);
       const result=await axios.post('/api/generate-course-outline',{
+        courseType: formData?.studyType,
         courseId: courseId,
+        topic: formData?.topic,
         ...formData,
-        createdBy: user?.primaryEmailAddress?.emailAddress
+        createdBy: user?.primaryEmailAddress?.emailAddress,
+        difficultyLevel: formData?.difficultyLevel,
       });
       setLoading(false);
       router.replace('/dashboard');
@@ -50,7 +53,7 @@ function Create() {
             />}
         </div>
 
-        <div className='flex justify-center w-full mt-32 '>
+        <div className='flex justify-around w-full mt-32 '>
           {step!=0? <Button variant="outline" onClick={()=>setStep(step-1)}> Previous</Button>:' '}
           {step==0?<Button onClick={()=>setStep(step+1)}>Next</Button>:
           <Button onClick={GenerateCourseOutline} disabled={loading}>

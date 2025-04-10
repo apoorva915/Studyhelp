@@ -1,4 +1,7 @@
 import { courseOutlineAIModel } from "@/configs/AiModel";
+import { db } from "@/configs/db";
+import { STUDY_MATERIAL_TABLE } from "@/configs/schema";
+import { inngest } from "@/inngest/client";
 import { NextResponse } from "next/server";
 
 export async function POST(req){
@@ -9,15 +12,23 @@ export async function POST(req){
     const aiResp= await courseOutlineAIModel.sendMessage(PROMPT);
     const aiResult=JSON.parse(await aiResp.response.text());
     //save the result along with user input
+    console.log({ courseType, courseId, createdBy, topic, difficultyLevel });
+
     const dbResult=await db.insert(STUDY_MATERIAL_TABLE).values({
         courseId:courseId,
         courseType:courseType,
         createdBy:createdBy,
         topic:topic,
-        courseLayout:aiResult
+        courseLayout:aiResult,
+        difficultyLevel:difficultyLevel,
     }).returning({resp:STUDY_MATERIAL_TABLE})
 
-    console.log(dbResult);
+     const res=await inngest.send({
+        name:'notes.generate',
+        data:{
+            course:dbResult[0].resp,
+        }
+     })
 
     return NextResponse.json({result:dbResult[0]})
 }
