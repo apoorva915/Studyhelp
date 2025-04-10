@@ -36,6 +36,8 @@ function Create() {
       });
       setLoading(false);
       router.replace('/dashboard');
+      //Toast Notification
+      toast("Your course content is generating, click on refresh button!")
       console.log(result.data.result.resp);
     }
   return (
