@@ -6,11 +6,18 @@ import TopicInput from './_components/TopicInput';
 import {v4 as uuidv4} from 'uuid';
 import axios from 'axios';
 import { useUser } from '@clerk/nextjs';
+import {Loader} from 'lucide-react';
+import { useRouter } from 'next/navigation';
+
 
 function Create() {
     const [step,setStep]=useState(0);
     const [formData,setFormData]=useState([]);
     const {user}=useUser();
+    const [loading,setLoading]=useState(false);
+
+    const router=useRouter();
+
     const handleUserInput=(fieldName, fieldValue)=>{
       setFormData(prev=>({
         ...prev,
@@ -21,12 +28,14 @@ function Create() {
     /*Used to save user input and generate course layout using AI*/
     const GenerateCourseOutline= async()=>{
       const courseId=uuidv4();
+      setLoading(true);
       const result=await axios.post('/api/generate-course-outline',{
         courseId: courseId,
         ...formData,
         createdBy: user?.primaryEmailAddress?.emailAddress
       });
-
+      setLoading(false);
+      router.replace('/dashboard');
       console.log(result.data.result.resp);
     }
   return (
@@ -44,7 +53,8 @@ function Create() {
         <div className='flex justify-center w-full mt-32 '>
           {step!=0? <Button variant="outline" onClick={()=>setStep(step-1)}> Previous</Button>:' '}
           {step==0?<Button onClick={()=>setStep(step+1)}>Next</Button>:
-          <Button onClick={GenerateCourseOutline}>Generate</Button>}
+          <Button onClick={GenerateCourseOutline} disabled={loading}>
+           {loading?<Loader className='animal-spin' />:'Generate'}</Button>}
         </div>
     </div>
   )
