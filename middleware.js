@@ -1,6 +1,6 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
-const isProtectedRoute = createRouteMatcher(['/dashboard(.*)','/create'])
+const isProtectedRoute = createRouteMatcher(['/dashboard(.*)','/create','/course(.*)'])
 
 export default clerkMiddleware(async (auth, req) => {
   // Restrict admin routes to users with specific permissions
