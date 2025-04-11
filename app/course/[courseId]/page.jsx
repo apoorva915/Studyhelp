@@ -24,9 +24,9 @@ function Course() {
   return (
     <div>
       <DashboardHeader/>
-      <div className='max-10 md:mx-36 lg:px-60 mt-10'> 
+      <div className=''> 
         <CourseIntroCard course={course}/>
-        <StudyMaterialSection/>
+        <StudyMaterialSection courseId={courseId}/>
         <ChapterList course={course}/>
       </div>
     </div>
