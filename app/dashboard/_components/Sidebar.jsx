@@ -40,11 +40,13 @@ function Sidebar() {
         </Link>
           <div className="mt-5">
             {MenuList.map((item, index) =>(
-                <div key={index} className={`flex items-center gap-5 p-3 hover:bg-slate-200
+              <Link key={index} href={item.path} > 
+                <div  className={`flex items-center gap-5 p-3 hover:bg-slate-200
                 rounded-lg cursor-pointer mt-3 ${path===item.path && 'bg-slate-200'}`}>
                     <item.icon />
-                    <h2>{item.name}</h2>
+                  <h2>{item.name}</h2>
                 </div>
+                </Link>
             ))}
           </div>
       </div>
