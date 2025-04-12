@@ -41,7 +41,7 @@ export const GenerateNotes=inngest.createFunction(
       console.log(Chapters);
       let index=0;
        for(const chapter of Chapters){
-       const PROMPT='Generate exam material for each chapter, Make sure to include all topic points in the content,make sure to give content in html format(do no add HTML, Head,Body, Title tag),The chapters:'+JSON.stringify(chapter)
+       const PROMPT='Generate exam material/notes for each chapter, Make sure to include all topic points in the content,make sure to give content in html format(do no add HTML, Head,Body, Title tag),The chapters:'+JSON.stringify(chapter)
         const res=await generateNotesAiModel.sendMessage(PROMPT)
         const aiResp=res.response.text()
         console.log("data generated")
