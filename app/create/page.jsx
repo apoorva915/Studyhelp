@@ -61,7 +61,7 @@ function Create() {
           {step!=0? <Button variant="outline" onClick={()=>setStep(step-1)}> Previous</Button>:' '}
           {step==0?<Button onClick={()=>setStep(step+1)}>Next</Button>:
           <Button onClick={GenerateCourseOutline} disabled={loading}>
-           {loading?<Loader className='animal-spin' />:'Generate'}</Button>}
+           {loading?<Loader className='animate-spin' />:'Generate'}</Button>}
         </div>
     </div>
   )
