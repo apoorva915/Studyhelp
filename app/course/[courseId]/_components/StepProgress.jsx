@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button'
 import React from 'react'
-
+ 
 function StepProgress({stepCount,setStepCount,data}) {
   return (
     <div className='flex gap-5 items-center'>
