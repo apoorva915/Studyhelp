@@ -7,6 +7,8 @@ import { useRouter } from 'next/navigation'
 import React, { useState }from 'react'
 import { useEffect } from 'react'
 import StepProgress from '../_components/StepProgress'
+import HtmlNotesViewer from '@/app/Htmlconverted'
+import HtmlRenderer from '@/app/Htmlconverted'
 
 function ViewNotes() {
 
@@ -31,7 +33,12 @@ function ViewNotes() {
         <StepProgress stepCount={stepCount} setStepCount={setStepCount} data={notes}/>
 
         <div className='mt-10'>
-           <div dangerouslySetInnerHTML={{ __html: notes[stepCount]?.notes?.replace('```html', '') || '' }} />
+           {/* <div dangerouslySetInnerHTML={{ __html: notes[stepCount]?.notes?.replace('```html', '') || '' }} /> */}
+           {/* <pre className="whitespace-pre-wrap">
+  {notes[stepCount]?.notes?.replace('/```html/g', '').replace('/<\/?[^>]+(>|$)/g', '')}
+</pre> */}
+<HtmlRenderer rawHtml={notes[stepCount]?.notes} />
+
             {notes?.length==stepCount&&<div className='flex items-center gap-10 flex-col justify center'>
                 <h2>End of Notes</h2>
                 <Button onClick={()=>route.back()}>Go to Course Page</Button>

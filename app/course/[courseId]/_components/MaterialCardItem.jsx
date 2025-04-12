@@ -30,7 +30,7 @@ function MaterialCardItem({item, studyTypeContent,course,refreshData}) {
   }
 
   return (
-    <Link  href={'/course/'+course?.courseId+item.path}>
+    
     <div className={`border shadow-md rounded-lg p-5 flex flex-col items-center
       ${studyTypeContent?.[item.type]==null && 'grayscale'}
     `}>
@@ -45,9 +45,9 @@ function MaterialCardItem({item, studyTypeContent,course,refreshData}) {
       <Button className="mt-3 w-full" variant="outline" onClick={()=>GenerateContent()}>
         {loading && <RefreshCcw className="animate-spin" />}
         Generate</Button>
-      :<Button className="mt-3 w-full" variant="outline">View</Button>}
+      :<Link  href={'/course/'+course?.courseId+item.path}><Button className="mt-3 w-full" variant="outline">View</Button></Link>}
     </div>
-    </Link>
+    
   )
 }
 
