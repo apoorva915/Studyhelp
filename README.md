@@ -6,6 +6,7 @@ The system is optimized for scalability, real-time generation, and engagement, m
 KEY FEATURES:
 
 (1) AI-Powered Personalized Content Generation
+
 Input any topic, select a goal (exam, coding prep, learning, etc.) and difficulty level.
 Gemini AI automatically generates:
   Structured course outlines
@@ -14,6 +15,7 @@ Gemini AI automatically generates:
   Quizzes for self-assessment
 
 (2) Material Type Personalization
+
 Material generated is contextually tailored for:
   Exams (e.g., NEET, JEE, GRE)
   Interview Prep (e.g., DSA, system design)
@@ -21,11 +23,13 @@ Material generated is contextually tailored for:
   Coding Practice
 
 (3) Secure User Authentication with Clerk
+
 Easy and secure login/signup
 Personalized dashboards for each user
 Session management and user context handling
 
 (4) Dynamic Learning Dashboard
+
 Displays:
   Enrolled/generated topics
   Progress tracking
@@ -33,21 +37,25 @@ Displays:
 Filter by material type, topic, or status
 
 (5) Interactive Learning Tools
+
 Flashcards for spaced repetition
 Auto-generated quizzes with real-time feedback
 Notes structured into digestible chapters
 
 
 (6) Stripe-Powered Payment System
+
 Freemium model: limited content free
 Subscription access for unlimited content
 Secure checkout using Stripe APIs
 
 (7) Serverless Backend with Inngest
+
 Handles all async and AI generation events
 Scalable, event-driven functions—no need for traditional servers
 
 (8) Neon Database (PostgreSQL)
+
 Stores:
   User profiles
   Generated content
@@ -55,10 +63,12 @@ Stores:
 Fully scalable and efficient relational storage
 
 (9) Modern UI/UX
+
 Built using Tailwind CSS for responsive, clean design
 Optimized for mobile, desktop, and tablets
 
 TECH STACK
+
 Frontend: Next.js, React, Tailwind CSS
 
 AI Integration: Gemini AI API
