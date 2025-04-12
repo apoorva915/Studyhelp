@@ -1,7 +1,11 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import { useUser } from "@clerk/nextjs";
 import axios from "axios";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import {eq} from 'drizzle-orm'
+import { db } from "@/configs/db";
+import { USER_TABLE } from "@/configs/schema";
 
 const plans = [
   {
@@ -35,12 +39,27 @@ const plans = [
   },
 ];
 
-const Page = () => {
+const Upgrade = () => {
+    const {user}=useUser();
+    const[userDetail, setUserDetail]=useState();
+
+    useEffect(()=>{
+      user && GetUserDetail();
+    },[user])
+
+    const GetUserDetail=async()=>{
+      const result=await db.select().from(USER_TABLE)
+      .where(eq(USER_TABLE.email,user?.primaryEmailAddress?.emailAddress));
+
+      setUserDetail(result[0]);
+    }
+    
     const OnCheckoutClick= async ()=>{
          const res=await axios.post('/api/payment/checkout',{
             priceId:process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_MONTHLY,
          })
-         console.log(res.data)
+         console.log(res.data);
+         window.open(res.data?.url);
     }
   return (
     <div className="min-h-screen py-12 px-6 md:px-20">
@@ -79,4 +98,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default Upgrade;
