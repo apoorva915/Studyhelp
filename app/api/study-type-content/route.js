@@ -6,7 +6,9 @@ import { NextResponse } from "next/server";
 export async function POST(req){
     const {chapters,courseId,type}=await req.json()
 
-    const PROMPT='Generate the Flashcard on topic: '+chapters +' in JSON format with front back content, Maximum 15'
+    const PROMPT=type=='Flashcard'?
+    'Generate the Flashcard on topic: '+chapters +' in JSON format with front back content, Maximum 15':
+    'Generate quiz on topic: '+ chapters +'with Question and Options along with correct answers in json format'
 
     const res=await db.insert(STUDY_TYPE_CONTENT_TABLE).values({
         courseId:courseId,

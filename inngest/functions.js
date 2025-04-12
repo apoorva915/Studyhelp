@@ -1,6 +1,6 @@
 import { checkAndInsertUser } from "@/actions/user";
 import { inngest } from "./client";
-import { generateNotesAiModel, GenerateStudyTypeContentAiModel } from "@/configs/AiModel";
+import { generateNotesAiModel, GenerateQuizAiModel, GenerateStudyTypeContentAiModel } from "@/configs/AiModel";
 import { db } from "@/configs/db";
 import { CHAPTER_NOTES_TABLE, STUDY_MATERIAL_TABLE, STUDY_TYPE_CONTENT_TABLE } from "@/configs/schema";
 import { eq } from "drizzle-orm";
@@ -70,7 +70,8 @@ export const GenerateStudyTypeContent=inngest.createFunction(
     const {studyType,prompt,courseId,recordId}=event.data;
 
     const FlashcardAiResult=await step.run('Generating Flashcard using AI',async()=>{
-         const res=await GenerateStudyTypeContentAiModel.sendMessage(prompt);
+         const res=
+         studyType=='Flashcard'?await GenerateStudyTypeContentAiModel.sendMessage(prompt):await GenerateQuizAiModel.sendMessage(prompt);
          const Aires=JSON.parse(res.response.text());
          return Aires;
     })

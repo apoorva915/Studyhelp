@@ -12,6 +12,7 @@ function MaterialCardItem({item, studyTypeContent,course,refreshData}) {
   const GenerateContent=async()=>{
     // console.log(course)
     setLoading(true);
+    toast('Generating content...')
     const Chapters=course?.courseLayout?.chapters;
     let chapters='';
     for(const chap of Chapters){
