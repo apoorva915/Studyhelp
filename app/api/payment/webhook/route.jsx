@@ -54,6 +54,9 @@ export async function POST(req){
       // The payment failed or the customer does not have a valid payment method.
       // The subscription becomes past_due. Notify your customer and send them to the
       // customer portal to update their payment information.
+      await db.update(USER_TABLE).set({
+        isMember:false
+      }).where(eq(USER_TABLE.email,data.customer_details.email));
       break;
     default:
       // Unhandled event type
