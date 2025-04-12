@@ -36,7 +36,7 @@ function ViewNotes() {
 
                 </div>
             ))}            
-            <Button variant="outline" size="sm" onClick={()=>setStepCount(stepCount+1)}>Next</Button>
+            {stepCount!=notes.length && <Button variant="outline" size="sm" onClick={()=>setStepCount(stepCount+1)}>Next</Button>}
         </div>
 
         <div className='mt-10'>
