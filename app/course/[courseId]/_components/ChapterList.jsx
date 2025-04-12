@@ -1,5 +1,5 @@
 import React from 'react';
-
+ 
 function ChapterList({ course }) {
   const CHAPTERS = course?.courseLayout?.chapters;
 
