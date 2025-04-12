@@ -35,4 +35,4 @@ npx inngest-cli@latest dev
 
 npm run dev
 
-6. Your app should now be running at http://localhost:3000 
+6. Your app should now be running at http://localhost:3000 !
