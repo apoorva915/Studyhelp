@@ -26,7 +26,7 @@ function Course() {
       <DashboardHeader/>
       <div className=''> 
         <CourseIntroCard course={course}/>
-        <StudyMaterialSection courseId={courseId}/>
+        <StudyMaterialSection courseId={courseId} course={course}/>
         <ChapterList course={course}/>
       </div>
     </div>
