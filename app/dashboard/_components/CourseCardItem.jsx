@@ -25,12 +25,6 @@ function CourseCardItem({ course }) {
         <p className="text-sm line-clamp-2 text-gray-500 mt-2">
           {course?.courseLayout?.courseSummary}
         </p>
-        <div className="mt-3">
-          <Progress value={progressPercent} />
-          <p className="text-xs text-right mt-1 text-gray-500">
-            {Math.round(progressPercent)}% completed
-          </p>
-        </div>
         <div className="flex justify-end mt-3">
           {course?.status === 'Generating' ? (
             <h2 className="text-sm p-1 px-2 rounded-full bg-gray-400 text-white flex gap-2 items-center">
