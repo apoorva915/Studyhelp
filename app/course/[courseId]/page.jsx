@@ -13,13 +13,19 @@ function Course() {
     const [course,setCourse]=useState();
 
     useEffect(()=>{
-        GetCourse();
+      const cached = localStorage.getItem(`course-${courseId}`)
+      if (cached) {
+        setCourse(JSON.parse(cached))
+      } else {
+        GetCourse()
+      }
     },[])
 
     const GetCourse=async()=>{
         const result=await axios.get('/api/courses?courseId='+courseId);
         console.log(result);
         setCourse(result.data.result);
+        localStorage.setItem(`course-${courseId}`, JSON.stringify(result.data.result))
     }
   return (
     <div>
