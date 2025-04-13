@@ -21,7 +21,7 @@ function CourseCardItem({ course }) {
         </div>
         <h2 className="mt-3 text-lg font-medium h-[3rem]">
           {course?.courseLayout?.courseTitle}
-        </h2>
+        </h2> 
         <p className="text-sm line-clamp-2 text-gray-500 mt-2">
           {course?.courseLayout?.courseSummary}
         </p>
