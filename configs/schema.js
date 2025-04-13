@@ -1,4 +1,4 @@
-import { boolean, pgTable, serial, varchar, json, text, integer } from "drizzle-orm/pg-core";
+import { boolean, pgTable, serial, varchar, json, text, integer, timestamp, date } from "drizzle-orm/pg-core";
 
 export const USER_TABLE=pgTable('users', {
     id:serial('id').primaryKey(),
@@ -16,7 +16,8 @@ export const STUDY_MATERIAL_TABLE= pgTable('studyMaterial', {
     difficultyLevel:varchar().default('Easy'),
     courseLayout:json(),
     createdBy:varchar().notNull(),
-    status:varchar().default('Generating')
+    status:varchar().default('Generating'),
+    date: date('date')
 })
 
 export const CHAPTER_NOTES_TABLE=pgTable('chapterNotes',{
@@ -39,3 +40,12 @@ export const PAYMENT_RECORD_TABLE=pgTable('paymentRecord',{
     customerId:varchar(),
     sessionId:varchar()
 })
+
+export const USER_PROGRESS_TABLE = pgTable('userProgress', {
+  id: serial('id').primaryKey(),
+  userId: varchar('userId').notNull(),
+  courseId: varchar('courseId').notNull(),
+  completedChapters: json('completedChapters').notNull().default([]),
+  updatedAt: timestamp('updatedAt').defaultNow()
+});
+
