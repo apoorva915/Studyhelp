@@ -35,6 +35,9 @@ https://www.canva.com/design/DAGht_GhCBs/HNJl0qbh-r-DfH84FefDRQ/edit
 ## DEMO VIDEO: 
 https://www.youtube.com/watch?v=R_kmvlX6et8
 
+## DEPLOYED LINK:
+https://studyhelp-red.vercel.app/
+
 ## Getting Started
 
 1. Clone the Repository
