@@ -21,6 +21,7 @@ export async function POST(req){
         topic:topic,
         courseLayout:aiResult,
         difficultyLevel:difficultyLevel,
+        date:new Date(),
     }).returning({resp:STUDY_MATERIAL_TABLE})
 
      const res=await inngest.send({
