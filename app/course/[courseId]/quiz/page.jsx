@@ -20,8 +20,8 @@ function Quiz() {
             studyType:'Quiz',
         })
         setQuizdata(res.data);
-        setQuiz(res.data.content)
-        console.log(res.data.content[0])
+        setQuiz(res.data.content.questions)
+        console.log(res.data.content[0].questions[0])
     }
     const checkAnswer=(userSelectedOption,quiz)=>{
         if(userSelectedOption==quiz.correctAnswer){
