@@ -15,12 +15,7 @@ function CourseList() {
   const {totalCourse,setTotalCourse}=useContext(CourseCountContext);
 
   useEffect(() => {
-    const cache=localStorage.getItem('courselist');
-    if(cache){
-      setCourseList(JSON.parse(cache))
-    }
-    else{
-    user && GetCourseList()}
+    user && GetCourseList()
   }, [user])
 
   const GetCourseList = async () => {
@@ -29,10 +24,11 @@ function CourseList() {
       createdBy: user?.primaryEmailAddress?.emailAddress,
     })
     setCourseList(res.data.result);
-    localStorage.setItem(`courselist`, JSON.stringify(res.data.result))
     setLoading(false);
     setTotalCourse(res.data.result?.length);
   }
+
+  
 
   return (
     <div className="mt-10">

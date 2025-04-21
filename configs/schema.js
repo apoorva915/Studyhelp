@@ -24,7 +24,7 @@ export const CHAPTER_NOTES_TABLE=pgTable('chapterNotes',{
     id:serial().primaryKey(),
     courseId:varchar().notNull(),
     chapterId:integer().notNull(),
-    notes:text() 
+    notes:text()
 })
 
 export const STUDY_TYPE_CONTENT_TABLE=pgTable('studyTypeContent',{

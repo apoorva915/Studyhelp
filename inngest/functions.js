@@ -41,14 +41,14 @@ export const GenerateNotes=inngest.createFunction(
       console.log(Chapters);
       let index=0;
        for(const chapter of Chapters){
-       const PROMPT='Generate exam material/notes for each chapter, Make sure to include all topic points in the content,make sure to give content in html format(do no add HTML, Head,Body, Title tag),The chapters:'+JSON.stringify(chapter)
+       const PROMPT='Generate exam material/notes for each chapter, Make sure to include all topic points in the content,make sure to give content in an array of notes headings and notes and also give emojis etc to make notes interesting and dont use any symbol except double asterisk for bold text \n for new line and single asterisk for points,The chapters:'+JSON.stringify(chapter)
         const res=await generateNotesAiModel.sendMessage(PROMPT)
         const aiResp=res.response.text()
         console.log("data generated")
         await db.insert(CHAPTER_NOTES_TABLE).values({
           chapterId:index,
           courseId:course?.courseId,
-          notes:aiResp,
+        notes:aiResp
       })
       index=index+1;
     }
@@ -84,3 +84,16 @@ export const GenerateStudyTypeContent=inngest.createFunction(
     })
   }
 )
+
+export const CourseDeleted = inngest.createFunction(
+  { id: 'log-deleted-course' },
+  { event: 'course/deleted' },
+  async ({ event }) => {
+    const { courseId, deletedAt } = event.data;
+
+    // You could log this, notify admin, update an analytics table, etc.
+    console.log(`🗑️ Course ${courseId} was deleted at ${deletedAt}`);
+
+    return { success: true };
+  }
+);

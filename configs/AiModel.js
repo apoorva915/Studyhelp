@@ -22,7 +22,9 @@ const {
     ],
     responseMimeType: "application/json",
   };
-  
+  const config = {
+    responseMimeType: 'text/plain',
+  };
     export const courseOutlineAIModel = model.startChat({
       generationConfig,
       history: [
@@ -62,19 +64,105 @@ const {
     console.log(result.response.text());*/
 
     export const generateNotesAiModel = model.startChat({
-      generationConfig,
-      history: [
+      config,
+      history : [
         {
-          role: "user",
+          role: 'user',
           parts: [
-            {text: "Generate exam material/notes for each chapter, Make sure to include all topic points in the content,make sure to give content in html format(do no add HTML, Head,Body, Title tag),The chapters:{\n\"chapterId\": 1,\n\"chapterTitle\": \"Introduction to OOP\",\n\"chapterEmoji\": \"💡\",\n\"chapterSummary\": \"Explains the basic idea behind Object-Oriented Programming, contrasting it with procedural programming. Introduces the core concepts of objects and classes using real-world analogies.\",\n\"topics\": [\n\"What is Object-Oriented Programming (OOP)?\",\n\"Why use OOP? (Benefits like Reusability, Modularity)\",\n\"Objects in the Real World and in Programming\",\n\"Classes as Blueprints for Objects\",\n\"Difference between Procedural and Object-Oriented approaches (Simple)\"\n]\n}"},
+            {
+              text: `Generate exam material/notes for each chapter, Make sure to include all topic points in the content,make sure to give content in an array of notes headings and notes and also give emojis etc to make notes interesting and dont use any symbol except double asterisk for bold text \\n for new line and single asterisk for points
+    
+    ,The chapters:{\\n"chapterId": 1,\\n"chapterTitle": "Introduction to OOP",\\n"chapterEmoji": "💡",\\n"chapterSummary": "Explains the basic idea behind Object-Oriented Programming, contrasting it with procedural programming. Introduces the core concepts of objects and classes using real-world analogies.",\\n"topics": [\\n"What is Object-Oriented Programming (OOP)?",\\n"Why use OOP? (Benefits like Reusability, Modularity)",\\n"Objects in the Real World and in Programming",\\n"Classes as Blueprints for Objects",\\n"Difference between Procedural and Object-Oriented approaches (Simple)"\\n]\\n}"
+    `,
+            },
           ],
         },
         {
-          role: "model",
+          role: 'model',
           parts: [
-            {text: "The user wants HTML content that serves as 'exam material/notes' for Chapter 1: Introduction to OOP.\nThis content should cover all the specified topics:\n1.  What is Object-Oriented Programming (OOP)?\n2.  Why use OOP? (Benefits like Reusability, Modularity)\n3.  Objects in the Real World and in Programming\n4.  Classes as Blueprints for Objects\n5.  Difference between Procedural and Object-Oriented approaches (Simple)\n\nThe format should be HTML, but without the `<html>`, `<head>`, `<body>`, `<title>` tags. It should be structured like notes, clearly explaining each topic point. I can use headings, paragraphs, lists, and maybe `<strong>` or `<em>` tags for emphasis.\n\nPlan:\n1.  Create a main heading for the chapter notes.\n2.  Create subheadings for each topic.\n3.  Under each subheading, write concise notes explaining the concept.\n4.  Use bullet points for lists (like benefits of OOP).\n5.  Use clear language and real-world analogies where appropriate (as mentioned in the chapter summary).\n6.  Ensure all topic points are covered adequately.\n7.  Format the output as HTML, excluding the forbidden tags."},
-            {text: "```html\n<h2>Chapter 1: Introduction to OOP 💡 - Notes</h2>\n\n<hr>\n\n<h3>1. What is Object-Oriented Programming (OOP)?</h3>\n<ul>\n    <li><strong>Definition:</strong> OOP is a programming paradigm (a style or way of programming) based on the concept of \"objects\".</li>\n    <li><strong>Core Idea:</strong> It structures a software program into simple, reusable pieces of code blueprints (usually called classes), which are used to create individual instances of objects.</li>\n    <li><strong>Focus:</strong> Instead of focusing primarily on procedures or functions, OOP focuses on the data (attributes) and the behaviors (methods) that are bundled together within these objects.</li>\n    <li><strong>Analogy:</strong> Think of building with LEGO blocks. Each block (object) has its own properties and can connect with other blocks in specific ways.</li>\n</ul>\n\n<hr>\n\n<h3>2. Why use OOP? (Benefits)</h3>\n<p>OOP offers several advantages over purely procedural approaches, especially for larger, more complex projects:</p>\n<ul>\n    <li>\n        <strong>Reusability:</strong>\n        <ul>\n            <li>Objects and classes created for one program can often be reused in other programs with little or no modification.</li>\n            <li>This saves development time and effort. For example, a `Button` class created for one application can be reused in another.</li>\n        </ul>\n    </li>\n    <li>\n        <strong>Modularity:</strong>\n        <ul>\n            <li>OOP promotes breaking down a complex system into smaller, self-contained, manageable units (objects/classes).</li>\n            <li>Each object performs a specific function independently.</li>\n            <li>This makes the code easier to understand, maintain, and debug. If something is wrong with how users are handled, you likely look within the `User` class.</li>\n        </ul>\n    </li>\n    <li>\n        <strong>Maintainability & Scalability:</strong>\n        <ul>\n            <li>Due to modularity, changes or additions to one part of the system are less likely to break other parts.</li>\n            <li>It's easier to add new features or modify existing ones by working on specific classes or creating new ones.</li>\n        </ul>\n    </li>\n    <li>\n        <strong>Data Hiding / Encapsulation (Covered in more detail later):</strong>\n        <ul>\n            <li>OOP helps protect data from accidental modification by bundling data and methods together and controlling access to internal details.</li>\n        </ul>\n    </li>\n    <li>\n        <strong>Real-world Modeling:</strong>\n        <ul>\n            <li>OOP allows developers to model real-world entities (like cars, users, bank accounts) more directly in their code.</li>\n        </ul>\n    </li>\n</ul>\n\n<hr>\n\n<h3>3. Objects in the Real World and in Programming</h3>\n<ul>\n    <li><strong>Real World Objects:</strong> Anything around you is an object: your phone, a car, a dog, a person. Each object has:\n        <ul>\n            <li><strong>State/Attributes:</strong> Characteristics or properties (e.g., a dog has a color, breed, name; a car has a make, model, speed).</li>\n            <li><strong>Behavior/Methods:</strong> Actions it can perform (e.g., a dog can bark, wag tail; a car can accelerate, brake).</li>\n        </ul>\n    </li>\n    <li><strong>Programming Objects:</strong>\n        <ul>\n            <li>They are software representations of real-world or conceptual objects.</li>\n            <li>An object in programming is a self-contained unit that bundles:\n                <ul>\n                    <li><strong>Data (Attributes/Properties):</strong> Variables stored within the object (e.g., a `user` object might have `userName`, `email`).</li>\n                    <li><strong>Code (Methods/Functions):</strong> Procedures that operate on the object's data or perform actions (e.g., a `user` object might have `login()`, `updateProfile()` methods).</li>\n                </ul>\n            </li>\n            <li>Each object created from a class is a unique <strong>instance</strong>.</li>\n        </ul>\n    </li>\n</ul>\n\n<hr>\n\n<h3>4. Classes as Blueprints for Objects</h3>\n<ul>\n    <li><strong>Definition:</strong> A class is a template, blueprint, or prototype that defines the common attributes and methods for a certain type of object.</li>\n    <li><strong>Purpose:</strong> It specifies *what* data the objects will hold and *what* actions they can perform, but it's not an object itself.</li>\n    <li><strong>Analogy:</strong>\n        <ul>\n            <li>If a <strong>class</strong> is the blueprint for a house, then each actual house built from that blueprint is an <strong>object</strong> (an instance of the class).</li>\n            <li>If a <strong>class</strong> is a cookie cutter (`Dog` shape), then each cookie made with it is an <strong>object</strong> (a specific dog instance).</li>\n        </ul>\n    </li>\n    <li><strong>Relationship:</strong> You define a class once, and then you can create many objects (instances) based on that class. Each object will have its own set of attribute values but will share the same method definitions defined by the class.</li>\n    <li><strong>Example:</strong>\n        <pre>\n// Class definition (Blueprint)\nclass Dog {\n  String breed;\n  String color;\n  String name;\n\n  void bark() {\n    // Code to make the dog bark\n  }\n  void wagTail() {\n    // Code to make the dog wag tail\n  }\n}\n\n// Creating Objects (Instances) from the class\nDog myDog = new Dog(); // Creates a Dog object\nmyDog.name = \"Buddy\";\nmyDog.breed = \"Golden Retriever\";\n\nDog anotherDog = new Dog(); // Creates another Dog object\nanotherDog.name = \"Lucy\";\nanotherDog.breed = \"Poodle\";\n        </pre>\n    </li>\n</ul>\n\n<hr>\n\n<h3>5. Difference between Procedural and Object-Oriented approaches (Simple)</h3>\n<table>\n    <thead>\n        <tr>\n            <th>Feature</th>\n            <th>Procedural Programming</th>\n            <th>Object-Oriented Programming (OOP)</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr>\n            <td><strong>Primary Focus</strong></td>\n            <td>On procedures, functions, or sequences of instructions.</td>\n            <td>On objects, which bundle data and behavior together.</td>\n        </tr>\n        <tr>\n            <td><strong>Program Structure</strong></td>\n            <td>Divided into functions/procedures.</td>\n            <td>Divided into classes and objects.</td>\n        </tr>\n        <tr>\n            <td><strong>Data Handling</strong></td>\n            <td>Data often flows freely between functions, potentially using global variables. Less emphasis on data protection.</td>\n            <td>Data is typically encapsulated within objects. Access is controlled via methods. Emphasis on data security.</td>\n        </tr>\n        <tr>\n            <td><strong>Approach</strong></td>\n            <td>Top-down approach (break down tasks into sub-tasks/functions).</td>\n            <td>Bottom-up approach (design classes/objects first, then combine them).</td>\n        </tr>\n        <tr>\n            <td><strong>Real-world Modeling</strong></td>\n            <td>Less direct mapping to real-world entities.</td>\n            <td>Easier to model real-world problems and entities.</td>\n        </tr>\n        <tr>\n            <td><strong>Key Concepts</strong></td>\n            <td>Functions, procedures, structures (for data grouping).</td>\n            <td>Objects, classes, encapsulation, inheritance, polymorphism (covered later).</td>\n        </tr>\n        <tr>\n            <td><strong>Example Languages</strong></td>\n            <td>C, Fortran, Pascal</td>\n            <td>Java, C++, Python, C#, Ruby</td>\n        </tr>\n    </tbody>\n</table>\n<p>In essence, procedural programming is like following a recipe step-by-step, while OOP is like organizing a kitchen with different stations (objects) each responsible for specific tasks and ingredients (data).</p>\n<hr>\n```"},
+            {
+              text: `The user wants exam notes for a chapter titled "Introduction to OOP".
+    The notes should cover all the specified topics within the chapter.
+    The output format should be an array of objects, where each object has a "heading" and "notes" key.
+    The notes should be interesting, using emojis and formatting like **bold** text (using double asterisks) and bullet points (using single asterisks).
+    No symbols other than \`**\` and \`*\` should be used. New lines should be represented by \`\\n\`.
+    
+    Plan:
+    1.  Create an array to hold the notes objects.
+    2.  Go through each topic listed in the \`topics\` array.
+    3.  For each topic, create a notes object with:
+        *   \`heading\`: The topic title, possibly enhanced with emojis.
+        *   \`notes\`: Detailed explanation of the topic, incorporating emojis, bold text (\`**\`), and bullet points (\`*\`). Ensure all key aspects mentioned in the chapter summary are covered.
+    4.  Structure the notes clearly, explaining each concept.
+    5.  Review the generated notes to ensure they meet all requirements: cover all topics, use the correct format (array of objects), include emojis, use only \`**\` for bold and \`*\` for points, use \`\\n\` for new lines, and avoid other symbols.
+    
+    **Topic Breakdown & Content Ideas:**
+    
+    1.  **What is Object-Oriented Programming (OOP)?** 💡
+        *   Define OOP: Programming paradigm based on "objects".
+        *   Objects contain data (attributes/properties) and code (methods/behaviors).
+        *   Focus on objects interacting with each other.
+    
+    2.  **Why use OOP? (Benefits like Reusability, Modularity)** 🤔👍
+        *   Explain benefits:
+            *   **Reusability**: Use existing code (classes) to create new objects. Saves time & effort ⏱️.
+            *   **Modularity**: Program is divided into independent objects (modules). Easier to manage, test, and debug 🐛➡️✅.
+            *   **Maintainability**: Changes in one part less likely to affect others. Easier updates 🔧.
+            *   **Scalability**: Easier to add new features by adding new objects/classes. Grows well 🌱.
+            *   **Real-world modeling**: Maps well to real-world problems 🌍.
+    
+    3.  **Objects in the Real World and in Programming** 🐶💻
+        *   **Real World**: Use analogies like a dog (object) having states (color, breed) and behaviors (bark, wag tail).
+        *   **Programming**: Explain objects as instances of classes. A specific dog 'Fido' is an object. In code, an object is a variable holding data and having associated functions (methods).
+        *   Example: A \`Car\` object might have attributes like \`color\`, \`model\` and methods like \`startEngine()\`, \`accelerate()\`.
+    
+    4.  **Classes as Blueprints for Objects** 🏗️📄
+        *   Define Class: A template or blueprint used to create objects.
+        *   Analogy: Cookie cutter (class) makes cookies (objects). Architectural blueprint (class) builds houses (objects).
+        *   Specifies what attributes (data) and methods (behavior) its objects will have.
+        *   One class can create many objects, each with its own data but shared behavior definition.
+    
+    5.  **Difference between Procedural and Object-Oriented approaches (Simple)** 🚶‍♂️ vs 🧩
+        *   **Procedural Programming**:
+            *   Focuses on procedures or functions (sequences of instructions).
+            *   Data and functions are often separate.
+            *   Top-down approach. Think recipes 📜.
+            *   Example: C, Pascal.
+        *   **Object-Oriented Programming**:
+            *   Focuses on objects that bundle data and functions together.
+            *   Bottom-up approach. Think building with LEGO blocks🧱.
+            *   Emphasizes data hiding and interactions between objects.
+            *   Example: Java, C++, Python.
+        *   Simple contrast: Procedural is like a list of tasks, OOP is like a collection of interacting components.
+    
+    Okay, planning complete. I will now generate the array of notes objects based on this plan.`,
+            },
+            {
+              text: `\`\`\`json
+    [
+      {
+        "heading": "💡 What is Object-Oriented Programming (OOP)?",
+        "notes": "**Object-Oriented Programming (OOP)** is a way of thinking about and organizing code for computer programs.\\n\\n*   It's based on the concept of **objects** 📦.\\n*   Think of objects as self-contained units that bundle together **data** (information) and **methods** (actions or functions that use the data).\\n*   Instead of just writing procedures (lists of instructions), OOP involves creating objects that **interact** with each other to get the job done 🤝.\\n*   It helps model real-world things directly into code!"
+      },
+      {
+        "heading": "🤔 Why Use OOP? Benefits!",
+        "notes": "OOP offers several advantages over older programming styles:\\n\\n*   **Reusability** ♻️: Once you create a blueprint (a Class), you can create many objects from it. You can also reuse classes in different parts of your program or even in other programs! Write code once, use it multiple times.\\n*   **Modularity** 🧩: Programs are broken down into smaller, self-contained objects. This makes the code easier to understand, manage, and test. If something goes wrong, you often know which object to check! ✅\\n*   **Maintainability** 🔧: Because of modularity, changes to one part of the code are less likely to break other parts. This makes updating and fixing software much easier and safer.\\n*   **Scalability** 🌱: It's easier to add new features or components to an OOP program without disturbing the existing code. Just add new objects or classes!\\n*   **Real-World Modeling** 🌍: OOP concepts map well to real-world entities and their interactions, making it more intuitive to design software for complex systems."
+      },
+      {
+        "heading": "🐶 Objects in the Real World and in Programming 💻",
+        "notes": "Objects are all around us!\\n\\n*   **Real World Examples**:\\n    *   Your **dog** 🐕 is an object. It has **state** (data like name: 'Buddy', breed: 'Golden Retriever', color: 'Gold') and **behavior** (methods like \`bark()\`, \`wagTail()\`, \`eat()\`).\\n    *   A **car** 🚗 is an object. State: color, model, speed. Behavior: \`startEngine()\`, \`accelerate()\`, \`brake()\`.\\n\\n*   **Programming Objects**:\\n    *   In code, an object is a specific **instance** created from a class.\\n    *   It holds its own **data** (values for its attributes/variables) in memory.\\n    *   It can perform **actions** using its methods (functions associated with the object).\\n    *   Example: If you have a \`Car\` class, \`myTesla\` and \`yourFord\` could be two different car objects, each with its own color and current speed, but both able to \`accelerate()\`."
+      },
+      {
+        "heading": "🏗️ Classes as Blueprints for Objects 📄",
+        "notes": "A **Class** is like a blueprint, a template, or a recipe for creating objects.\\n\\n*   It **defines** the structure and behavior that all objects of that type will have.\\n*   It specifies:\\n    *   **Attributes** (also called properties or instance variables): The data that objects of this class will hold (e.g., \`color\`, \`name\`, \`age\`).\\n    *   **Methods** (also called functions or behaviors): The actions that objects of this class can perform (e.g., \`startEngine()\`, \`bark()\`, \`calculateArea()\`).\\n*   **Analogy Time!** ✨\\n    *   A cookie cutter is the **Class** 🍪. The cookies you make with it are the **Objects**. Each cookie is separate, but they all share the shape defined by the cutter.\\n    *   An architect's blueprint is the **Class** 🏠. The houses built from that blueprint are the **Objects**.\\n*   You only write the class **once**, but you can create **many** objects (instances) from it."
+      },
+      {
+        "heading": "🚶‍♂️ vs 🧩 Difference: Procedural vs. Object-Oriented",
+        "notes": "How does OOP differ from the older **Procedural Programming** style?\\n\\n*   **Procedural Programming**:\\n    *   Focuses on **procedures** or functions (a sequence of steps) 📜.\\n    *   Programs are often a list of instructions.\\n    *   **Data** and the **functions** that operate on that data are typically kept **separate**.\\n    *   Think of following a recipe step-by-step.\\n    *   Examples: C, Fortran, Pascal.\\n\\n*   **Object-Oriented Programming (OOP)**:\\n    *   Focuses on **objects** that bundle data and methods together 🎁.\\n    *   Programs are collections of interacting objects.\\n    *   **Data** and its associated **behavior** are **encapsulated** (kept together) within objects.\\n    *   Think of building something complex with specialized LEGO blocks 🧱.\\n    *   Examples: Java, Python, C++, C#.\\n\\n*   **Key Difference**: Procedural organizes code around **actions** (functions), while OOP organizes code around **things** (objects) that have both data and actions."
+      }
+    ]
+    \`\`\``,
+            },
           ],
         },
       ],

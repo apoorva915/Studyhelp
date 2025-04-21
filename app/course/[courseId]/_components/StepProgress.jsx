@@ -7,7 +7,7 @@ function StepProgress({stepCount,setStepCount,data}) {
     {stepCount!=0 && <Button variant="outline" size="sm" onClick={()=>setStepCount(stepCount-1)}>Previous</Button>}
     {data?.map((item,index)=>(
         <div key={index} className={`w-full h-2 rounded-full
-            ${index<stepCount?'bg-primary': 'bg-gray-200'}`
+            ${index<stepCount?'bg-primary':index==stepCount?'bg-blue-600': 'bg-gray-200'}`
         }>
 
         </div>
